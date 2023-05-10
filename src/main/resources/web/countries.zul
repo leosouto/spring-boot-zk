@@ -1,0 +1,42 @@
+<div height="100%" width="100%" align="center" style="padding-top: 20px;">
+    <window title="Country Management" border="normal" width="600px" apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('org.dev.app.view.CountryViewModel')">
+        <listbox model="@load(vm.countries)" selectedItem="@bind(vm.selected)" hflex="true" height="300px">
+            <listhead sizable="true">
+                <listheader label="Id"/>
+                <listheader label="Code"/>
+                <listheader label="Name"/>
+            </listhead>
+            <template name="model" var="country">
+                <listitem>
+                    <listcell label="@load(country.id)"/>
+                    <listcell label="@load(country.code)"/>
+                    <listcell label="@load(country.name)"/>
+                </listitem>
+            </template>
+        </listbox>
+        <toolbar>
+            <button label="New" onClick="@command('newCountry')"/>
+            <button label="Save" onClick="@command('saveCountry')" disabled="@load(empty vm.selected)"/>
+            <button label="Delete" onClick="@command('deleteCountry')" disabled="@load(empty vm.selected)"/>
+        </toolbar>
+        <groupbox visible="@load(not empty vm.selected)" hflex="true" mold="3d">
+            <grid hflex="true">
+                <rows>
+                    <row>
+                        <label value="Id"/>
+                        <label value="@load(vm.selected.id)"/>
+                    </row>
+                    <row>
+                        <label value="Code"/>
+                        <textbox value="@bind(vm.selected.code)"/>
+                    </row>
+                    <row>
+                        <label value="Name"/>
+                        <textbox value="@bind(vm.selected.name)"/>
+                    </row>
+                </rows>
+            </grid>
+        </groupbox>
+    </window>
+</div>
