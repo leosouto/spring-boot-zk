@@ -7,9 +7,11 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import java.io.Serializable;
+
 @Entity
 @Data
-public class Country {
+public class Country implements Serializable {
     @Id
     @GenericGenerator(
             name = "countries-sequence-generator",

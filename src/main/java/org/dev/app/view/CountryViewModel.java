@@ -2,6 +2,7 @@ package org.dev.app.view;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.SerializationUtils;
 import org.dev.app.model.Country;
 import org.dev.app.service.CountryService;
 import org.zkoss.bind.annotation.Command;
@@ -17,7 +18,6 @@ public class CountryViewModel {
     @WireVariable
     private CountryService countryService;
 
-    private ListModelList<Country> countries;
     private Country selected;
 
     public ListModelList<Country> getCountries() {
@@ -26,11 +26,11 @@ public class CountryViewModel {
 
     @NotifyChange("selected")
     public void setSelected(Country selected) {
-        this.selected = selected;
+        this.selected = SerializationUtils.clone(selected);
     }
 
     @Command
-    @NotifyChange({"selected", "countries"})
+    @NotifyChange({"selected"})
     public void newCountry() {
         this.selected = new Country();
     }
