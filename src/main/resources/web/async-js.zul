@@ -1,0 +1,20 @@
+<div apply="org.dev.app.view.AsyncJsController">
+    <script type="text/javascript">
+        const asyncJs = (callback) => {
+            setTimeout(callback('afterAsyncJs'), 2000); // 2 secs
+        }
+
+        const callAsyncJs = (inputId) => {
+            asyncJs((token) => {
+                const $input = jq('#' + inputId);
+                $input.val(token);
+                $input.trigger('blur');
+                // $input.trigger('change');
+            });
+        }
+    </script>
+
+    <textbox id="token" visible="false"/>
+
+    <button id="callAsyncJs" label="Call Async JS"/>
+</div>
